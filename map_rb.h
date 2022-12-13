@@ -11,6 +11,7 @@
 #include <list>
 
 const unsigned LENGTH = 4;
+unsigned COUNT = 0;
 
 template<class K, class D>
 class map_rb {
@@ -41,6 +42,18 @@ private:
             m_pLeft->m_isRed = false;
             m_pRight->m_isRed = false;
             m_isRed = true;
+        }
+
+        friend std::ostream& operator<<(std::ostream& os, const Node& crArg){
+            os << "( key : " <<  crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: " << crArg.m_isRed << ")" << std::endl;
+            COUNT++;
+            if(crArg.m_pLeft)
+                os << *crArg.m_pLeft;
+//            os << "( key : " <<  crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: " << crArg.m_isRed ? "red )\n" :  "black )\n";
+
+            if(crArg.m_pRight)
+                os << *crArg.m_pRight;
+            return os;
         }
 
         value_type m_value;
@@ -330,6 +343,12 @@ public:
     const_iterator cbegin() const { return const_iterator(m_pRoot); }
 
     const_iterator cend() const { return const_iterator(nullptr); }
+
+    friend std::ostream& operator<<(std::ostream& os, const map_rb& crArg){
+        if(crArg.m_pRoot)
+            os << *crArg.m_pRoot;
+        return os;
+    }
 };
 
 

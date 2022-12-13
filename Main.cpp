@@ -9,10 +9,10 @@ using namespace std;
 int main() {
 
     map_rb<int, char> mymap;
-    auto var1 = std::pair<int, char>(0, 'a');
+    auto var1 = std::pair<int, char>(11, 'a');
     auto var2 = std::pair<int, char>(1, 'b');
-    auto var3 = std::pair<int, char>(2, 'c');
-    auto var4 = std::pair<int, char>(3, 'd');
+    auto var3 = std::pair<int, char>(3, 'c');
+    auto var4 = std::pair<int, char>(25, 'd');
     auto res = mymap.insert(var1);
     auto res2 = mymap.insert(var2);
     auto res3 = mymap.insert(var3);
@@ -25,11 +25,13 @@ int main() {
 //    cout << "key 1: " <<  res2.first->first << "\nchar 1: " << res2.first->second << "\nresult insert 1 : " << res2.second << std::endl;
 //    cout << "key 2: " <<  res3.first->first << "\nchar 2: " << res3.first->second << "\nresult insert 2 : " << res3.second << std::endl;
 
-    auto result = mymap.find(1);
-    if(result == mymap.end())
-        cout << "find not work" << endl;
-    else
-        cout << result->first << " : " << result->second << endl;
+//    auto result = mymap.find(1);
+//    if(result == mymap.end())
+//        cout << "find not work" << endl;
+//    else
+//        cout << result->first << " : " << result->second << endl;
+
+    cout << mymap << endl;
 
 
     //    for(auto i = mymap.begin(); i != mymap.end(); i++){
