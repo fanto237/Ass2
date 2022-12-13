@@ -8,15 +8,15 @@ using namespace std;
 
 int main() {
 
-    map_rb<int, char> mymap;
-    auto var1 = std::pair<int, char>(11, 'a');
-    auto var2 = std::pair<int, char>(1, 'b');
-    auto var3 = std::pair<int, char>(3, 'c');
-    auto var4 = std::pair<int, char>(25, 'd');
-    auto res = mymap.insert(var1);
-    auto res2 = mymap.insert(var2);
-    auto res3 = mymap.insert(var3);
-    auto res4 = mymap.insert(var4);
+//    map_rb<int, char> mymap;
+//    auto var1 = std::pair<int, char>(11, 'a');
+//    auto var2 = std::pair<int, char>(1, 'b');
+//    auto var3 = std::pair<int, char>(3, 'c');
+//    auto var4 = std::pair<int, char>(25, 'd');
+//    auto res = mymap.insert(var1);
+//    auto res2 = mymap.insert(var2);
+//    auto res3 = mymap.insert(var3);
+//    auto res4 = mymap.insert(var4);
 
 //     cout << "the result is : " << res.second << endl;
 
@@ -31,7 +31,7 @@ int main() {
 //    else
 //        cout << result->first << " : " << result->second << endl;
 
-    cout << mymap << endl;
+//    cout << mymap << endl;
 
 
     //    for(auto i = mymap.begin(); i != mymap.end(); i++){
@@ -39,12 +39,9 @@ int main() {
 //        cout << "+++++++++" << endl;
 //    }
 
-//int *list = new int[4];
-//int a = 123;
-//    list[0] = 1;
-//    list[1] = 14;
-//    list[2] = a;
-//    list[3] = 13;
-//
-//    cout << &list[2] << " | "<< (list+2) << " | " << &a << endl;
+    int a = 3;
+    for (int i = 0; i < 4; ++i){
+        bool f = ( a & ( 1 << i) ) != 0;
+        cout << f << endl;
+    }
 }

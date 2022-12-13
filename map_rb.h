@@ -11,7 +11,6 @@
 #include <list>
 
 const unsigned LENGTH = 4;
-unsigned COUNT = 0;
 
 template<class K, class D>
 class map_rb {
@@ -45,11 +44,10 @@ private:
         }
 
         friend std::ostream& operator<<(std::ostream& os, const Node& crArg){
-            os << "( key : " <<  crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: " << crArg.m_isRed << ")" << std::endl;
-            COUNT++;
             if(crArg.m_pLeft)
                 os << *crArg.m_pLeft;
-//            os << "( key : " <<  crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: " << crArg.m_isRed ? "red )\n" :  "black )\n";
+
+            os << "( key : " <<  crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: " << crArg.m_isRed << ")" << std::endl;
 
             if(crArg.m_pRight)
                 os << *crArg.m_pRight;
