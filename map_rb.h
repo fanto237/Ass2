@@ -11,6 +11,7 @@
 #include <list>
 
 const unsigned LENGTH = 4;
+unsigned COUNTER = 0;
 
 template<class K, class D>
 class map_rb {
@@ -43,13 +44,14 @@ private:
             m_isRed = true;
         }
 
-        friend std::ostream& operator<<(std::ostream& os, const Node& crArg){
-            if(crArg.m_pLeft)
+        friend std::ostream &operator<<(std::ostream &os, const Node &crArg) {
+
+            if (crArg.m_pLeft)
                 os << *crArg.m_pLeft;
 
-            os << "( key : " <<  crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: " << crArg.m_isRed << ")" << std::endl;
+            os << "( key : " << crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: " << crArg.m_isRed << ")" << std::endl;
 
-            if(crArg.m_pRight)
+            if (crArg.m_pRight)
                 os << *crArg.m_pRight;
             return os;
         }
@@ -63,7 +65,7 @@ private:
     struct NodeHandler {
 
         explicit NodeHandler(Node *&root) : m_prRoot(root) {
-            for(unsigned i = LENGTH - 1; i > 0; --i){
+            for (unsigned i = LENGTH - 1; i > 0; --i) {
                 m_Nodes[i] = nullptr;
             }
             m_Nodes[NODE] = root;
@@ -73,14 +75,12 @@ private:
             for (unsigned i = LENGTH - 1; i > 0; --i)
                 m_Nodes[i] = m_Nodes[i - 1];
             m_Nodes[NODE] = direction ? node(NODE)->m_pRight : node(NODE)->m_pLeft;
-
         }
 
         void set(Node *nodeToSet, unsigned kind) {
             if (!node(kind + 1))
                 m_prRoot = nodeToSet;
-            else if (node(kind) != nullptr ? node(kind + 1)->m_pLeft == node(kind) : nodeToSet->m_value.first <
-                                                                                     node(kind + 1)->m_value.first)
+            else if (nodeToSet->m_value.first < node(kind + 1)->m_value.first)
                 node(kind + 1)->m_pLeft = nodeToSet;
             else
                 node(kind + 1)->m_pRight = nodeToSet;
@@ -236,7 +236,6 @@ public:
             return tmp;
         }
 
-        //value_type& operator*(){
         typename iterator::value_type &operator*() {
             return m_Nodes2Visit.back()->m_value;
         }
@@ -320,7 +319,7 @@ public:
             else if (keyToAdd < key)
                 h.down(true);
             else
-                std::pair<iterator, bool>(end(), false);
+                return std::pair<iterator, bool>(end(), false);
         }
         auto newNode = new Node(value.first, value.second);
         h.set(newNode, h.NODE);
@@ -342,8 +341,8 @@ public:
 
     const_iterator cend() const { return const_iterator(nullptr); }
 
-    friend std::ostream& operator<<(std::ostream& os, const map_rb& crArg){
-        if(crArg.m_pRoot)
+    friend std::ostream &operator<<(std::ostream &os, const map_rb &crArg) {
+        if (crArg.m_pRoot)
             os << *crArg.m_pRoot;
         return os;
     }
