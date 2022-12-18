@@ -119,7 +119,8 @@ private:
         void split() {
             Node *dad = node(DAD);
             if (dad && dad->m_isRed) {
-                if ((node(GDAD)->m_value.first < dad->m_value.first) != (dad->m_value.first < node(NODE)->m_value.first))
+                if ((node(GDAD)->m_value.first < dad->m_value.first) !=
+                    (dad->m_value.first < node(NODE)->m_value.first))
                     rotate(DAD);
                 rotate(GDAD);
             }
@@ -148,12 +149,15 @@ public:
     public:
         std::list<Node *> m_Nodes2Visit;
 
-//         copy constructor
-        const_iterator(const const_iterator &crArg) {
-            if (&crArg != this)
-                for (auto node: crArg.m_Nodes2Visit)
-                    m_Nodes2Visit.push_back(node);
-        }
+        // copy constructor
+        // todo check if this constructor is needed because it couses the
+        //  warning: ‘map_rb<int, char>::iterator::m_Nodes2Visit’ should be initialized in the member initialization list [-Weffc++]
+//        const_iterator(const const_iterator &crArg) {
+//            if (&crArg != this)
+//                for (auto node: crArg.m_Nodes2Visit)
+//                    m_Nodes2Visit.push_back(node);
+//        }
+
 
         const_iterator &operator=(const const_iterator &crArg) {
             if (&crArg != this)
@@ -162,15 +166,14 @@ public:
         }
 
         // constructor
-        explicit const_iterator(Node *start) {
-            goDown(start);
+        explicit const_iterator(Node *start) : m_Nodes2Visit(goDown(start)) {
         }
 
 
         const_iterator &operator++() {
             Node *node = m_Nodes2Visit.back();
             m_Nodes2Visit.pop_back();
-            goDown(node->m_pRight);
+            m_Nodes2Visit = goDown(node->m_pRight);
             return *this;
         }
 
@@ -178,7 +181,7 @@ public:
             iterator tmp(*this);
             Node *node = m_Nodes2Visit.back();
             m_Nodes2Visit.pop_back();
-            goDown(node->m_pRight);
+            m_Nodes2Visit = goDown(node->m_pRight);
             return tmp;
         }
 
@@ -200,9 +203,11 @@ public:
         }
 
     private:
-        void goDown(Node *goFrom) {
+        std::list<map_rb::Node *> goDown(Node *goFrom) {
+            std::list<map_rb::Node *> tmpList;
             for (; goFrom; goFrom = goFrom->m_pLeft)
-                m_Nodes2Visit.push_back(goFrom);
+                tmpList.push_back(goFrom);
+            return tmpList;
         }
 
     };
@@ -211,12 +216,18 @@ public:
     public:
         std::list<Node *> m_Nodes2Visit;
 
-//         copy constructor
-        iterator(const iterator &crArg) {
-            if (&crArg != this)
-                for (auto node: crArg.m_Nodes2Visit)
-                    m_Nodes2Visit.push_back(node);
+        // constructor
+        explicit iterator(Node *start) : m_Nodes2Visit(goDown(start)) {
+//            goDown(start);
         }
+
+//         copy constructor
+            // todo also check for this constructor
+//        iterator(const iterator &crArg) {
+//            if (&crArg != this)
+//                for (auto node: crArg.m_Nodes2Visit)
+//                    m_Nodes2Visit.push_back(node);
+//        }
 
         iterator &operator=(const iterator &crArg) {
             if (&crArg != this)
@@ -224,10 +235,6 @@ public:
                     m_Nodes2Visit.push_back(node);
         }
 
-        // constructor
-        explicit iterator(Node *start) {
-            goDown(start);
-        }
 
         // Operators
         explicit operator const_iterator() {
@@ -237,7 +244,7 @@ public:
         iterator &operator++() {
             Node *node = m_Nodes2Visit.back();
             m_Nodes2Visit.pop_back();
-            goDown(node->m_pRight);
+            m_Nodes2Visit = goDown(node->m_pRight);
             return *this;
         }
 
@@ -245,7 +252,7 @@ public:
             iterator tmp(*this);
             Node *node = m_Nodes2Visit.back();
             m_Nodes2Visit.pop_back();
-            goDown(node->m_pRight);
+            m_Nodes2Visit = goDown(node->m_pRight);
             return tmp;
         }
 
@@ -266,9 +273,11 @@ public:
         }
 
     private:
-        void goDown(Node *goFrom) {
+        std::list<map_rb::Node *> goDown(Node *goFrom) {
+            std::list<map_rb::Node *> tmpList;
             for (; goFrom; goFrom = goFrom->m_pLeft)
-                m_Nodes2Visit.push_back(goFrom);
+                tmpList.push_back(goFrom);
+            return tmpList;
         }
     };
 
