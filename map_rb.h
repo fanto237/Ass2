@@ -18,7 +18,7 @@ class map_rb {
 public:
     typedef std::pair<const K, D> value_type;
 
-    map_rb() : handler(new NodeHandler(m_pRoot)) {};
+    map_rb() = default;
 
     ~map_rb() {
         delete m_pRoot;
@@ -50,13 +50,22 @@ private:
 
         friend std::ostream &operator<<(std::ostream &os, const Node &crArg) {
 
-            if (crArg.m_pLeft)
+            if (crArg.m_pLeft) {
+                COUNTER = 0;
                 os << *crArg.m_pLeft;
 
-            os << "( key : " << crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: " << crArg.m_isRed << ")" << std::endl;
+            }
+            for (unsigned i = 0; i < COUNTER; ++i)
+                std::cout << '\t';
+            os << "( key : " << crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: "
+               << crArg.m_isRed << ")" << std::endl;
+            ++COUNTER;
 
-            if (crArg.m_pRight)
+            if (crArg.m_pRight) {
+                COUNTER = 0;
                 os << *crArg.m_pRight;
+            }
+
             return os;
         }
 
@@ -68,7 +77,7 @@ private:
 
     struct NodeHandler {
 
-        explicit NodeHandler(Node *&root) : m_prRoot(root) {
+        explicit NodeHandler(Node *&root) : handlerRoot(root) {
             for (unsigned i = LENGTH - 1; i > 0; --i) {
                 m_Nodes[i] = nullptr;
             }
@@ -77,13 +86,13 @@ private:
 
         void down(bool direction) {
             for (unsigned i = LENGTH - 1; i > 0; --i)
-                m_Nodes[i] = m_Nodes[i - 1];
-            m_Nodes[NODE] = direction ? node(NODE)->m_pRight : node(NODE)->m_pLeft;
+                m_Nodes[i] = m_Nodes[i - 1]; // GG_DAD = GAD | GAD = DAD | DAD = NODE
+            m_Nodes[NODE] = direction ? node(NODE)->m_pLeft : node(NODE)->m_pRight;
         }
 
         void set(Node *nodeToSet, unsigned kind) {
             if (!node(kind + 1))
-                m_prRoot = nodeToSet;
+                handlerRoot = nodeToSet;
             else if (nodeToSet->m_value.first < node(kind + 1)->m_value.first)
                 node(kind + 1)->m_pLeft = nodeToSet;
             else
@@ -110,7 +119,7 @@ private:
         void split() {
             Node *dad = node(DAD);
             if (dad && dad->m_isRed) {
-                if (node(GDAD)->m_value.first < dad->m_value.first != dad->m_value.first < node(NODE)->m_value.first)
+                if ((node(GDAD)->m_value.first < dad->m_value.first) != (dad->m_value.first < node(NODE)->m_value.first))
                     rotate(DAD);
                 rotate(GDAD);
             }
@@ -129,7 +138,7 @@ private:
         const unsigned DAD = 1;
         const unsigned GDAD = 2;
         const unsigned GGDAD = 3;
-        Node *&m_prRoot = nullptr;
+        Node *&handlerRoot = nullptr;
     };
 
 
@@ -321,7 +330,7 @@ public:
 
 private:
     Node *m_pRoot = nullptr;
-    NodeHandler *handler = nullptr;
+//    NodeHandler *handler = nullptr;
 public:
 
     iterator begin() { return iterator(m_pRoot); }
