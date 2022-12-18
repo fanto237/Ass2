@@ -1,7 +1,6 @@
 #include <iostream>
-//#include "ISCAS.h"
-//#include "ROBDD.h"
 #include "map_rb.h"
+#include "map_pt.h"
 
 using namespace std;
 
@@ -9,26 +8,39 @@ using namespace std;
 int main() {
 
     map_rb<int, char> mymap;
-    auto var1 = std::pair<int, char>(12, 'a');
+//    map_rb<int, char> mymap2;
+    auto var1 = std::pair<int, char>(0, 'a');
     auto var2 = std::pair<int, char>(1, 'b');
-    auto var3 = std::pair<int, char>(4, 'c');
-//    auto var4 = std::pair<int, char>(3, 'd');
+    auto var3 = std::pair<int, char>(2, 'c');
+    auto var4 = std::pair<int, char>(3, 'd');
+    auto var7 = std::pair<int, char>(34, 'd');
+    auto var5 = std::pair<int, char>(17, 'd');
+    auto var6 = std::pair<int, char>(24, 'd');
+
     auto res = mymap.insert(var1);
     auto res2 = mymap.insert(var2);
     auto res3 = mymap.insert(var3);
-//    auto res4 = mymap.insert(var4);
+    auto res4 = mymap.insert(var4);
+    auto res5 = mymap.insert(var5);
+    auto res6 = mymap.insert(var6);
+    auto res7 = mymap.insert(var7);
     cout << mymap << endl;
 
 
-//     cout << "the result is : " << res.second << endl;
 
+    cout << "-----------------" << endl;
 
-//    cout << "key 0: " <<  res.first->first << "\nchar 0: " << res.first->second << "\nresult insert 0 : " << res.second << std::endl;
-//    cout << "key 1: " <<  res2.first->first << "\nchar 1: " << res2.first->second << "\nresult insert 1 : " << res2.second << std::endl;
-//    cout << "key 2: " <<  res3.first->first << "\nchar 2: " << res3.first->second << "\nresult insert 2 : " << res3.second << std::endl;
+    cout << "key 0: " << res.first->first << "\nchar 0: " << res.first->second << "\nresult insert 0 : " << res.second
+         << std::endl;
+    cout << "key 1: " << res2.first->first << "\nchar 1: " << res2.first->second << "\nresult insert 1 : "
+         << res2.second << std::endl;
+    cout << "key 2: " << res3.first->first << "\nchar 2: " << res3.first->second << "\nresult insert 2 : "
+         << res3.second << std::endl;
 
-//    auto result = mymap.find(1);
-//    if(result == mymap.end())
+    cout << "-----------------" << endl;
+
+//    auto result = mymap.find(24);
+//    if (result == mymap.end())
 //        cout << "find not work" << endl;
 //    else
 //        cout << result->first << " : " << result->second << endl;
@@ -46,4 +58,10 @@ int main() {
 //        bool f = ( a & ( 1 << i) ) != 0;
 //        cout << f << endl;
 //    }
+
+//char c = '\t';
+//int count = 2;
+//for(int i = 0; i < count; ++i)
+//    cout << c;
+//cout << "teste tab" << endl;
 }
