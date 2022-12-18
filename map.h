@@ -171,7 +171,7 @@ private:
 public:
     iterator begin() { return iterator(m_pRoot); }
     iterator end() const { return iterator(nullptr); }
-//    const_iterator  cbegin() const { return const_iterator(m_prRoot); } // todo uncomment this part later
+//    const_iterator  cbegin() const { return const_iterator(handlerRoot); } // todo uncomment this part later
 //    const_iterator cend() const { return const_iterator(nullptr); } // todo uncomment this part later
 };
 
