@@ -315,9 +315,9 @@ public:
             }
             auto key = h.node(h.NODE)->m_value.first;
             if (key < keyToAdd)
-                h.down(false);
+                h.down(false); // todo go right when key to add is bigger
             else if (keyToAdd < key)
-                h.down(true);
+                h.down(true); // todo go left when current key is bigger
             else
                 return std::pair<iterator, bool>(end(), false);
         }
