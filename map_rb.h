@@ -27,6 +27,10 @@ public:
 private:
     // Node class
     struct Node {
+        Node(const Node &node) = delete;
+
+        Node &operator=(const Node &node) = delete;
+
         Node(const K &key, const D &value) : m_value(key, value) {}
 
         ~Node() {
@@ -259,22 +263,9 @@ public:
         }
     };
 
-    map_rb(const map_rb<K, D> &crArg)  // TODO: deleting copy constructor if not used
-    {
-        if (crArg.m_pRoot)
-            m_pRoot = new Node(*crArg.m_pRoot);
-    }
+    map_rb(const map_rb<K, D> &crArg) = delete;
 
-    map_rb &operator=(const map_rb<K, D> &crArg)  // TODO: deleting assign operator if not used
-    {
-        if (&crArg != this) {
-            delete m_pRoot;
-            m_pRoot = nullptr;
-            if (crArg.m_pRoot)
-                m_pRoot = new Node(*crArg.m_pRoot);
-        }
-        return *this;
-    }
+    map_rb &operator=(const map_rb<K, D> &crArg) = delete;
 
 
     iterator find(const K &key) {
