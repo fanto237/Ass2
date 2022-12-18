@@ -1,17 +1,10 @@
-//
-// Created by Study on 11/12/2022.
-//
-
 #ifndef ASS2_MAP_RB_H
 #define ASS2_MAP_RB_H
 
-
-#include <utility>
 #include <iterator>
 #include <list>
 
 const unsigned LENGTH = 4;
-unsigned COUNTER = 0;
 
 template<class K, class D>
 class map_rb {
@@ -48,27 +41,6 @@ private:
             m_isRed = true;
         }
 
-        friend std::ostream &operator<<(std::ostream &os, const Node &crArg) {
-
-            if (crArg.m_pLeft) {
-                COUNTER = 0;
-                os << *crArg.m_pLeft;
-
-            }
-            for (unsigned i = 0; i < COUNTER; ++i)
-                std::cout << '\t';
-            os << "( key : " << crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: "
-               << crArg.m_isRed << ")" << std::endl;
-            ++COUNTER;
-
-            if (crArg.m_pRight) {
-                COUNTER = 0;
-                os << *crArg.m_pRight;
-            }
-
-            return os;
-        }
-
         value_type m_value;
         Node *m_pLeft = nullptr;
         Node *m_pRight = nullptr;
@@ -86,7 +58,7 @@ private:
 
         void down(bool direction) {
             for (unsigned i = LENGTH - 1; i > 0; --i)
-                m_Nodes[i] = m_Nodes[i - 1]; // GG_DAD = GAD | GAD = DAD | DAD = NODE
+                m_Nodes[i] = m_Nodes[i - 1];
             m_Nodes[NODE] = direction ? node(NODE)->m_pLeft : node(NODE)->m_pRight;
         }
 
@@ -119,7 +91,8 @@ private:
         void split() {
             Node *dad = node(DAD);
             if (dad && dad->m_isRed) {
-                if ((node(GDAD)->m_value.first < dad->m_value.first) != (dad->m_value.first < node(NODE)->m_value.first))
+                if ((node(GDAD)->m_value.first < dad->m_value.first) !=
+                    (dad->m_value.first < node(NODE)->m_value.first))
                     rotate(DAD);
                 rotate(GDAD);
             }
@@ -146,15 +119,15 @@ public:
 
     class const_iterator : public std::iterator<std::forward_iterator_tag, value_type> {
     public:
-        std::list<Node *> m_Nodes2Visit;
 
-//         copy constructor
+        // copy constructor
         const_iterator(const const_iterator &crArg) {
             if (&crArg != this)
                 for (auto node: crArg.m_Nodes2Visit)
                     m_Nodes2Visit.push_back(node);
         }
 
+        // assign operator
         const_iterator &operator=(const const_iterator &crArg) {
             if (&crArg != this)
                 for (auto node: crArg.m_Nodes2Visit)
@@ -182,7 +155,6 @@ public:
             return tmp;
         }
 
-        //value_type& operator*(){
         typename const_iterator::value_type &operator*() const {
             return m_Nodes2Visit.back()->m_value;
         }
@@ -205,19 +177,19 @@ public:
                 m_Nodes2Visit.push_back(goFrom);
         }
 
+        std::list<Node *> m_Nodes2Visit;
     };
 
     class iterator : public std::iterator<std::forward_iterator_tag, value_type> {
     public:
-        std::list<Node *> m_Nodes2Visit;
-
-//         copy constructor
+        // copy constructor
         iterator(const iterator &crArg) {
             if (&crArg != this)
                 for (auto node: crArg.m_Nodes2Visit)
                     m_Nodes2Visit.push_back(node);
         }
 
+        // assign operator
         iterator &operator=(const iterator &crArg) {
             if (&crArg != this)
                 for (auto node: crArg.m_Nodes2Visit)
@@ -270,6 +242,7 @@ public:
             for (; goFrom; goFrom = goFrom->m_pLeft)
                 m_Nodes2Visit.push_back(goFrom);
         }
+        std::list<Node *> m_Nodes2Visit;
     };
 
     map_rb(const map_rb<K, D> &crArg) = delete;
@@ -315,9 +288,9 @@ public:
             }
             auto key = h.node(h.NODE)->m_value.first;
             if (key < keyToAdd)
-                h.down(false); // todo go right when key to add is bigger
+                h.down(false);
             else if (keyToAdd < key)
-                h.down(true); // todo go left when current key is bigger
+                h.down(true);
             else
                 return std::pair<iterator, bool>(end(), false);
         }
@@ -330,7 +303,6 @@ public:
 
 private:
     Node *m_pRoot = nullptr;
-//    NodeHandler *handler = nullptr;
 public:
 
     iterator begin() { return iterator(m_pRoot); }
@@ -341,11 +313,6 @@ public:
 
     const_iterator cend() const { return const_iterator(nullptr); }
 
-    friend std::ostream &operator<<(std::ostream &os, const map_rb &crArg) {
-        if (crArg.m_pRoot)
-            os << *crArg.m_pRoot;
-        return os;
-    }
 };
 
 

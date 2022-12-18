@@ -24,7 +24,7 @@ int main() {
     auto res5 = mymap.insert(var5);
     auto res6 = mymap.insert(var6);
     auto res7 = mymap.insert(var7);
-    cout << mymap << endl;
+//    cout << mymap << endl;
 
 
 
