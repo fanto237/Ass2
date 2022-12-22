@@ -1,5 +1,5 @@
 C++ = g++
-CFLAGS = -Wall -Weffc++ -Wextra -pedantic -pedantic-errors -fPIE -std=c++17
+CFLAGS = -Wall -Wextra -Weffc++ -pedantic -fPIE -std=c++17
 C_DEBUG_FLAGS = -g
 RM = /bin/rm -f
 EXEC = ausgabe
