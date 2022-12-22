@@ -8,7 +8,6 @@
 #include <climits>
 
 const unsigned LENGTH_PT = 3;
-unsigned COUNTER_PT = 0; // todo delete it afterwards
 
 template<class D>
 class map_pt {
@@ -35,31 +34,10 @@ private:
         Node(const K &key, const D &value, unsigned bitPos) : Node(key, value, bitPos, nullptr) {};
 
         ~Node() {
-            delete m_pLeft;
-            delete m_pRight;
-        }
-
-
-        // todo delete the print operator later
-        friend std::ostream &operator<<(std::ostream &os, const Node &crArg) {
-
-            if (crArg.m_pLeft) {
-                COUNTER_PT = 0;
-                os << *crArg.m_pLeft;
-
-            }
-            for (int i = 0; i < COUNTER_PT; ++i)
-                std::cout << '\t';
-            os << "( key : " << crArg.m_value.first << " | value: " << crArg.m_value.second << " | color: "
-               << crArg.m_bitPos << ")" << std::endl;
-            ++COUNTER_PT;
-
-            if (crArg.m_pRight) {
-                COUNTER_PT = 0;
-                os << *crArg.m_pRight;
-            }
-
-            return os;
+            if (m_pLeft && m_bitPos < m_pLeft->m_bitPos)
+                delete m_pLeft;
+            if (m_pRight && m_bitPos < m_pRight->m_bitPos)
+                delete m_pRight;
         }
 
         value_type m_value;
@@ -80,23 +58,20 @@ private:
         void down(bool direction) {
             for (unsigned i = LENGTH_PT - 1; i > 0; --i)
                 m_Nodes[i] = m_Nodes[i - 1];
-            m_Nodes[NODE] = direction ? node(DAD)->m_pLeft : node(
-                    DAD)->m_pRight; // TODO check if the direction should be from the father or the current node
+            m_Nodes[NODE] = direction ? node(DAD)->m_pLeft : node(DAD)->m_pRight; // TODO check if the direction should be from the father or the current node
         }
 
         void search(const K &key, int maxBitValue) {
             int lastBitPos = -1;
             while (!isNull() && lastBitPos < (int) node(NODE)->m_bitPos && maxBitValue > (int) node(NODE)->m_bitPos) {
                 lastBitPos = node(NODE)->m_bitPos;
-                down(left(key,
-                          lastBitPos)); // if the lastBitPos of the key is set to { 1 -> then go right direction  | 0 -> then go left direction }
+                down(left(key,lastBitPos)); // todo if the lastBitPos of the key is set to { 1 -> then go right direction  | 0 -> then go left direction }
             }
         }
 
         void search(const K &key) {
             search(key, INT_MAX);
         }
-
 
         void set(Node *nodeToSet, unsigned kind) {
             if (!node(kind + 1))
@@ -121,7 +96,7 @@ private:
         NodeHandler &operator=(const NodeHandler &crArg) {
             if (this != &crArg) {
                 handlerRoot = crArg.handlerRoot;
-                for (int i = 0; i < LENGTH_PT; ++i) {
+                for (unsigned i = 0; i < LENGTH_PT; ++i) {
                     m_Nodes[i] = crArg.m_Nodes[i];
                 }
             }
@@ -193,12 +168,6 @@ public:
         return std::pair<iterator, bool>(newNode, true);
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const map_pt &crArg) {
-        if (crArg.m_pRoot)
-            os << *crArg.m_pRoot;
-        return os;
-    }
-
 private:
     Node *m_pRoot = nullptr;
 
@@ -209,13 +178,13 @@ public:
 
     map_pt() = default;
 
+    map_pt(const map_pt<D> &crArg) = delete;
+
+    map_pt &operator=(const map_pt<D> &crArg) = delete;
+
     ~map_pt() {
         delete m_pRoot;
     }
-
-//    map_pt(const map_pt<K, D> &crArg)  = delete;
-//
-//    map_pt &operator=(const map_pt<K, D> &crArg) = delete;
 };
 
 
