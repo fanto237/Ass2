@@ -1,0 +1,33 @@
+digraph {
+    subgraph cluster_0{
+    style=invis
+    normal_nand [shape=plaintext]
+    and_with_not [shape=plaintext]
+    iterativ_nand [shape=plaintext]
+    diff_normal_nand_and_with_not [shape=plaintext]
+    diff_normal_nand_iterativ_nand [shape=plaintext]
+    }
+    "normal_nand"->"0x4de0470"
+    "0x4de0470" [label=a]
+    "0x4de0470"->"0x4de0250" [label=1]
+    "0x4de0470"->"0x4dde050" [label=0,color=red]
+
+    "0x4de0250" [label=c]
+    "0x4de0250"->"0x4dde0b0" [label=1]
+    "0x4de0250"->"0x4dde050" [label=0,color=red]
+
+    "0x4dde0b0" [shape=box, label= 0]
+    "0x4dde050" [shape=box, label= 1]
+    "and_with_not"->"0x4de0250"
+    "diff_normal_nand_iterativ_nand"->"0x4ddfa30"
+    "0x4ddfa30" [label=c]
+    "0x4ddfa30"->"0x4dde050" [label=1]
+    "0x4ddfa30"->"0x4dde0b0" [label=0,color=red]
+
+    "a"->"0x4ddf330"
+    "0x4ddf330" [label=a]
+    "0x4ddf330"->"0x4dde050" [label=1]
+    "0x4ddf330"->"0x4dde0b0" [label=0,color=red]
+
+    "diff_normal_nand_iterativ_nand"->"0x4ddfa30"
+}

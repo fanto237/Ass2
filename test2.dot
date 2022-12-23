@@ -1,0 +1,51 @@
+digraph {
+    subgraph cluster_0{
+    style=invis
+    G16 [shape=plaintext]
+    G17 [shape=plaintext]
+    }
+    "G16"->"0x55eec5d68a00"
+    "0x55eec5d68a00" [label=G1]
+    "0x55eec5d68a00"->"0x55eec5d68810" [label=1]
+    "0x55eec5d68a00"->"0x55eec5d68110" [label=0,color=red]
+
+    "0x55eec5d68810" [label=G2]
+    "0x55eec5d68810"->"0x55eec5d6ade0" [label=1]
+    "0x55eec5d68810"->"0x55eec5d67830" [label=0,color=red]
+
+    "0x55eec5d6ade0" [shape=box, label= 1]
+    "0x55eec5d67830" [label=G3]
+    "0x55eec5d67830"->"0x55eec5d6ade0" [label=1]
+    "0x55eec5d67830"->"0x55eec5d66f50" [label=0,color=red]
+
+    "0x55eec5d66f50" [shape=box, label= 0]
+    "0x55eec5d68110" [label=G2]
+    "0x55eec5d68110"->"0x55eec5d67f40" [label=1]
+    "0x55eec5d68110"->"0x55eec5d66f50" [label=0,color=red]
+
+    "0x55eec5d67f40" [label=G3]
+    "0x55eec5d67f40"->"0x55eec5d68060" [label=1]
+    "0x55eec5d67f40"->"0x55eec5d6ade0" [label=0,color=red]
+
+    "0x55eec5d68060" [label=G4]
+    "0x55eec5d68060"->"0x55eec5d66f50" [label=1]
+    "0x55eec5d68060"->"0x55eec5d6ade0" [label=0,color=red]
+
+    "G17"->"0x55eec5d68ba0"
+    "0x55eec5d68ba0" [label=G2]
+    "0x55eec5d68ba0"->"0x55eec5d67f40" [label=1]
+    "0x55eec5d68ba0"->"0x55eec5d683a0" [label=0,color=red]
+
+    "0x55eec5d683a0" [label=G3]
+    "0x55eec5d683a0"->"0x55eec5d68170" [label=1]
+    "0x55eec5d683a0"->"0x55eec5d679a0" [label=0,color=red]
+
+    "0x55eec5d68170" [label=G4]
+    "0x55eec5d68170"->"0x55eec5d66f50" [label=1]
+    "0x55eec5d68170"->"0x55eec5d679a0" [label=0,color=red]
+
+    "0x55eec5d679a0" [label=G5]
+    "0x55eec5d679a0"->"0x55eec5d6ade0" [label=1]
+    "0x55eec5d679a0"->"0x55eec5d66f50" [label=0,color=red]
+
+}
